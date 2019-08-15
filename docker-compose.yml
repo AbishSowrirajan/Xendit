@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    container_name: docker-node-mongo
+    restart: always
+    build: .
+    ports:
+      - '80:3000'
+    links:
+      - mongo-comment
+      - mongo-member
+  mongo-comment:
+    container_name: mongo-comment
+    image: mongo
+    ports:
+      - '27017:27017'
+  mongo-member:
+    container_name: mongo-member
+    image: mongo
+    ports:
+      - '27018:27018'

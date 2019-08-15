@@ -1,0 +1,82 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Swagger API for XENDIT",
+        "version": "1.0.0",
+        "title": "Swagger API for XENDIT",
+        
+        "contact": {
+            "email": ""
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/xen",
+    
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/requestCM": {
+            "post": {
+                
+                "summary": "Post Comments",
+                "description": "Post Comments",
+                "operationId": "requestCM",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Give Comments",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/CM"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        }        
+    },
+    "definitions": {
+        "CM": {
+            "type": "object",
+            "properties": {
+                "cm": {
+                    "type": "string",
+                    "description": "Comment"
+                }
+            }
+        },
+        "ORG": {
+            "type": "object",
+            "properties": {
+                "bankId": {
+                    "type": "string",
+                    "description": "Bank ID"
+                },
+                "token" : {
+                    "type" : "string",
+                    "description" : "Bank Balance Token"
+                }
+            }
+        }        
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}

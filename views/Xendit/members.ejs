@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2> See all the  Members  for Xendit Organizaiton </h2>
+
+<table>
+    <tr>
+       <th>Emailid</th><th>AvatarURL</th><th>Followers</th><th>Following</th>
+    </tr>
+ 
+    <% for (var i = 0; i < members.length; i++) { %>
+     <tr>
+       <td><%= members[i].emailid %></td>
+       <td><%= members[i].avatarurl%></td>
+       <td><%= members[i].followers %></td>
+       <td><%= members[i].following %></td>
+     </tr>    
+    <% } %>
+ </table>
+
+
+</body>
+</html>

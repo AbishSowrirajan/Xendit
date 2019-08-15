@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2> See all the  comments  for Xendit Organizaiton </h2>
+
+<h4> Comments:</h4>
+  <ul>
+    <% items.forEach(function(item) { %>
+      <li>
+        <%= item.comment %>
+      </li>
+      <% }); %>
+  </ul>
+
+  <form action="/item/delete" target="_self" method="POST">
+    Delete all the comments:
+    <br>
+    <input type="submit" value="Delete">
+    <input type="hidden"  name="org" value="Xendit">
+  </form>
+
+
+</body>
+</html>
