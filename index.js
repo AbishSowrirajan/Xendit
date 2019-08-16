@@ -15,11 +15,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Connect to MongoDB
 mongoose
   .connect(
-    'mongodb://mongo-comment:27018/Xendit',
+    'mongodb://mongo-comment:27017/Xendit',
     { useNewUrlParser: true }
   )
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
+
+  const Item = require('./models/comments');
 
 // Connect to MongoDB
 /*mongoose
@@ -28,9 +30,8 @@ mongoose
     { useNewUrlParser: true }
   )
   .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
+  .catch(err => console.log(err));*/
 
-const Item = require('./models/comments');
 const members = require('./models/members');
 
 const newmembers = new members([
@@ -90,9 +91,6 @@ followers:10,
 following:14}
 ]);
 
-newmembers.save().then(items => res.send('Comment Added Successfully'))
-                 .catch(err => res.send('Members not added successfully'));
-*/
 
 app.get('/', (req, res) => {
   Item.find()
@@ -145,6 +143,72 @@ app.get('/Xendit/Menu', (req, res) => {
       .then(items => res.render('../Xendit/comment/getcomment',{ items }))
       .catch(err => res.status(404).json({ msg: 'No items found' }));
 
+  });
+
+  app.get('/Xendit/members', (req, res) => {
+    const newmembers = new members([
+
+      {emailid : 'abishms@xendit.com',
+    org      : 'Xendit',  
+    avatarurl: 'https://api.adorable.io/avatars/285/abishms@xendit.com.png',
+    followers: 4,
+    following: 8},
+    
+    {emailid : 'arunms@xendit.com',
+    org      : 'Xendit',
+    avatarurl: 'https://api.adorable.io/avatars/285/arunms@xendit.com.png',
+    followers: 5,
+    following: 9},
+    
+    {emailid :'durkams@xendit.com',
+    org      : 'Xendit',
+    avatarurl:'https://api.adorable.io/avatars/285/durkams@xendit.com.png',
+    followers:6,
+    following:10},
+    
+    {emailid :'abishms@paypal.com',
+    org      : 'Paypal',
+    avatarurl:'https://api.adorable.io/avatars/285/abishms@paypal.com.png',
+    followers:5,
+    following:7},
+    
+    {emailid :'arunms@paypal.com',
+    org      : 'Paypal',
+    avatarurl:'https://api.adorable.io/avatars/285/arunms@paypal.com.png',
+    followers:6,
+    following:9},
+    
+    {emailid: 'durkams@paypal.com',
+    org      : 'Paypal',
+    avatarurl:'https://api.adorable.io/avatars/285/durkams@paypal.com.png',
+    followers:8,
+    following:8},
+    
+    {emailid:'abishms@mastercard.com',
+    org      : 'MasterCard',
+    avatarurl:'https://api.adorable.io/avatars/285/abishms@mastercard.com.png',
+    followers:9,
+    following:6},
+    
+    {emailid:'arunms@mastercard.com',
+    org      : 'MasterCard',
+    avatarurl:'https://api.adorable.io/avatars/285/arunms@mastercard.com.png',
+    followers:7,
+    following:6},
+    
+    {emailid:'durkams@mastercard.com',
+    org      : 'MasterCard',
+    avatarurl:'https://api.adorable.io/avatars/285/durkams@mastercard.com.png',
+    followers:10,
+    following:14}
+    ]);
+
+    var query = { org: 'Xendit'}
+    newmembers.save().then(members => (members.find(query)
+    .then(members => res.render('../Xendit/members',{ members }))
+    .catch(err => res.status(404).json({ msg: 'No items found' }))
+    .catch(err => res.status(404).json({ msg: 'No items found' }))));
+      
   });
   
   app.get('/Xendit/comment/item/comment', (req, res) => {
