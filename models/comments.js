@@ -20,4 +20,10 @@ const ItemSchema = new Schema({
   }
 });
 
+//const connection1 = mongoose.createConnection('mongodb://mongo-comment:27017/Xendit');
+
+
+//module.exports = Item = connection1.model('comments', ItemSchema);
+
+
 module.exports = Item = mongoose.model('comments', ItemSchema);

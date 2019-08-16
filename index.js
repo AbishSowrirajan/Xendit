@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
-
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -13,7 +12,7 @@ app.set('views', [path.join(__dirname, 'views'),path.join(__dirname, 'views/Xend
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Connect to MongoDB
-mongoose
+ mongoose
   .connect(
     'mongodb://mongo-comment:27017/Xendit',
     { useNewUrlParser: true }
@@ -21,93 +20,85 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
-  const Item = require('./models/comments');
+const Item = require('./models/comments');
 
-// Connect to MongoDB
-/*mongoose
-  .connect(
-    'mongodb://mongo:27019/orgs',
-    { useNewUrlParser: true }
-  )
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));*/
 
 const members = require('./models/members');
 
-const newmembers = new members([
+const newmembers = [
 
-  {emailid : 'abishms@xendit.com',
+  {_id : 'abishms@xendit.com',
 org      : 'Xendit',  
 avatarurl: 'https://api.adorable.io/avatars/285/abishms@xendit.com.png',
 followers: 4,
 following: 8},
 
-{emailid : 'arunms@xendit.com',
+{_id : 'arunms@xendit.com',
 org      : 'Xendit',
 avatarurl: 'https://api.adorable.io/avatars/285/arunms@xendit.com.png',
 followers: 5,
 following: 9},
 
-{emailid :'durkams@xendit.com',
+{_id :'durkams@xendit.com',
 org      : 'Xendit',
 avatarurl:'https://api.adorable.io/avatars/285/durkams@xendit.com.png',
 followers:6,
 following:10},
 
-{emailid :'abishms@paypal.com',
+{_id :'abishms@paypal.com',
 org      : 'Paypal',
 avatarurl:'https://api.adorable.io/avatars/285/abishms@paypal.com.png',
 followers:5,
 following:7},
 
-{emailid :'arunms@paypal.com',
+{_id :'arunms@paypal.com',
 org      : 'Paypal',
 avatarurl:'https://api.adorable.io/avatars/285/arunms@paypal.com.png',
 followers:6,
 following:9},
 
-{emailid: 'durkams@paypal.com',
+{_id: 'durkams@paypal.com',
 org      : 'Paypal',
 avatarurl:'https://api.adorable.io/avatars/285/durkams@paypal.com.png',
 followers:8,
 following:8},
 
-{emailid:'abishms@mastercard.com',
+{_id:'abishms@mastercard.com',
 org      : 'MasterCard',
 avatarurl:'https://api.adorable.io/avatars/285/abishms@mastercard.com.png',
 followers:9,
 following:6},
 
-{emailid:'arunms@mastercard.com',
+{_id:'arunms@mastercard.com',
 org      : 'MasterCard',
 avatarurl:'https://api.adorable.io/avatars/285/arunms@mastercard.com.png',
 followers:7,
 following:6},
 
-{emailid:'durkams@mastercard.com',
+{_id:'durkams@mastercard.com',
 org      : 'MasterCard',
 avatarurl:'https://api.adorable.io/avatars/285/durkams@mastercard.com.png',
 followers:10,
 following:14}
-]);
+];
 
 
 app.get('/', (req, res) => {
-  Item.find()
+    Item.find()
     .then(items => res.render('index'))
-    .catch(err => res.status(404).json({ msg: 'No items found' }));
+    .catch(err => res.status(404).json({ msg: 'Error in loading Page' }));
 });
 
-app.get('/Xendit/Menu', (req, res) => {
+app.get('/orgs/Xendit/Menu', (req, res) => {
     Item.find()
-      .then(items => res.render('../Xendit/Menu'))
-      .catch(err => res.status(404).json({ msg: 'No items found' }));
+      .then(items => res.render('../orgs/Xendit/Menu'))
+      .catch(err => res.status(404).json({ msg: 'Error in Loading Menu' }));
   });
   
-  app.get('/Xendit/comment/comments', (req, res) => {
+  app.get('/orgs/Xendit/comments', (req, res) => {
     Item.find()
-      .then(items => res.render('../Xendit/comment/comments'))
-      .catch(err => res.status(404).json({ msg: 'No items found' }));
+      .then(items => res.render('../orgs/Xendit/comments'))
+      .catch(err => res.status(404).json({ msg: ' Error in Loading Comments ' }));
 
       
   });
@@ -130,148 +121,120 @@ app.get('/Xendit/Menu', (req, res) => {
     var query = { org: req.body.org}
     Item.update(query,{ $set : {  isDeleted: true}},{multi: true})
       .then(items => res.send('All the comments are Deleted'))
-      .catch(err => res.send('All the comments are Deleted'));
+      .catch(err => res.send('All the comments are not Deleted'));
     
    
 });
 
 
-  app.get('/Xendit/comment/getcomment', (req, res) => {
+  app.get('/orgs/Xendit/getcomment', (req, res) => {
     var query = { org: 'Xendit',
                   isDeleted: false}
     Item.find(query)
-      .then(items => res.render('../Xendit/comment/getcomment',{ items }))
-      .catch(err => res.status(404).json({ msg: 'No items found' }));
+      .then(items => res.render('../orgs/Xendit/getcomment',{ items }))
+      .catch(err => res.status(404).json({ msg: 'Error in loading comments' }));
 
   });
 
-  app.get('/Xendit/members', (req, res) => {
-    const newmembers = new members([
-
-      {emailid : 'abishms@xendit.com',
-    org      : 'Xendit',  
-    avatarurl: 'https://api.adorable.io/avatars/285/abishms@xendit.com.png',
-    followers: 4,
-    following: 8},
-    
-    {emailid : 'arunms@xendit.com',
-    org      : 'Xendit',
-    avatarurl: 'https://api.adorable.io/avatars/285/arunms@xendit.com.png',
-    followers: 5,
-    following: 9},
-    
-    {emailid :'durkams@xendit.com',
-    org      : 'Xendit',
-    avatarurl:'https://api.adorable.io/avatars/285/durkams@xendit.com.png',
-    followers:6,
-    following:10},
-    
-    {emailid :'abishms@paypal.com',
-    org      : 'Paypal',
-    avatarurl:'https://api.adorable.io/avatars/285/abishms@paypal.com.png',
-    followers:5,
-    following:7},
-    
-    {emailid :'arunms@paypal.com',
-    org      : 'Paypal',
-    avatarurl:'https://api.adorable.io/avatars/285/arunms@paypal.com.png',
-    followers:6,
-    following:9},
-    
-    {emailid: 'durkams@paypal.com',
-    org      : 'Paypal',
-    avatarurl:'https://api.adorable.io/avatars/285/durkams@paypal.com.png',
-    followers:8,
-    following:8},
-    
-    {emailid:'abishms@mastercard.com',
-    org      : 'MasterCard',
-    avatarurl:'https://api.adorable.io/avatars/285/abishms@mastercard.com.png',
-    followers:9,
-    following:6},
-    
-    {emailid:'arunms@mastercard.com',
-    org      : 'MasterCard',
-    avatarurl:'https://api.adorable.io/avatars/285/arunms@mastercard.com.png',
-    followers:7,
-    following:6},
-    
-    {emailid:'durkams@mastercard.com',
-    org      : 'MasterCard',
-    avatarurl:'https://api.adorable.io/avatars/285/durkams@mastercard.com.png',
-    followers:10,
-    following:14}
-    ]);
-
-    var query = { org: 'Xendit'}
-    newmembers.save().then(members => (members.find(query)
-    .then(members => res.render('../Xendit/members',{ members }))
-    .catch(err => res.status(404).json({ msg: 'No items found' }))
-    .catch(err => res.status(404).json({ msg: 'No items found' }))));
+   app.get('/orgs/Xendit/members', (req, res) => {
       
+    var query = { org: 'Xendit'};
+    members.insertMany(newmembers).then(items => (members.find(query).sort({ followers : -1}))
+    .then(members => res.render('../orgs/Xendit/members',{ members }))
+    .catch(err => res.status(404).json({ msg: 'Error in loading Page' })))
+    .catch(err => {if (err.code == 11000){
+                  members.find(query).sort({ followers : -1})
+                  .then(members => res.render('../orgs/Xendit/members',{ members }))
+                  .catch(err => res.status(404).json({ msg: 'Error in loading Page' }))
+                  }
+                  else {
+                    return res.status(404).json({ msg: 'Error in Loading page' })
+                  }  
+                  })     
   });
   
-  app.get('/Xendit/comment/item/comment', (req, res) => {
+  app.get('/orgs/Paypal/Menu', (req, res) => {
     Item.find()
-      .then(items => res.render('../Xendit/comment/getcomment',{ items }))
-      .catch(err => res.status(404).json({ msg: 'No items found' }));
-
-      console.log(items.comment)
-
-  });
-
-  app.get('/Paypal/Menu', (req, res) => {
-    Item.find()
-      .then(items => res.render('../Paypal/Menu'))
-      .catch(err => res.status(404).json({ msg: 'No items found' }));
+      .then(items => res.render('../orgs/Paypal/Menu'))
+      .catch(err => res.status(404).json({ msg: 'Error in Loading Menu' }));
   });
   
-  app.get('/Paypal/comment/comments', (req, res) => {
+  app.get('/orgs/Paypal/comments', (req, res) => {
     Item.find()
-      .then(items => res.render('../Paypal/comment/comments'))
-      .catch(err => res.status(404).json({ msg: 'No items found' }));
+      .then(items => res.render('../orgs/Paypal/comments'))
+      .catch(err => res.status(404).json({ msg: 'Error in Loading Comments ' }));
 
       
   });
 
-  app.get('/Paypal/comment/getcomment', (req, res) => {
-    var query = { org: 'Paypal'}
+  app.get('/orgs/Paypal/getcomment', (req, res) => {
+    var query = { org: 'Paypal',
+                 isDeleted: false}
     Item.find(query)
-      .then(items => res.render('../MasterCard/comment/getcomment',{ items }))
-      .catch(err => res.status(404).json({ msg: 'No items found' }));
+      .then(items => res.render('../orgs/Paypal/getcomment',{ items }))
+      .catch(err => res.status(404).json({ msg: 'Error in Loading Comments ' }));
 
   });
 
-  app.get('/MasterCard/Menu', (req, res) => {
+  app.get('/orgs/Paypal/members', (req, res) => {
+      
+    var query = { org: 'Paypal'};
+    members.insertMany(newmembers).then(items => (members.find(query).sort({ followers : -1}))
+    .then(members => res.render('../orgs/Paypal/members',{ members }))
+    .catch(err => res.status(404).json({ msg: 'Error in Loading page' })))
+    .catch(err => {if (err.code == 11000){
+                  members.find(query).sort({ followers : -1})
+                  .then(members => res.render('../orgs/Paypal/members',{ members }))
+                  .catch(err => res.status(404).json({ msg: 'Error in Loading page' }))
+                  }
+                  else {
+                    return res.status(404).json({ msg: 'Error in Loading page' })
+                  }  
+                  })
+      
+  });
+
+  app.get('/orgs/MasterCard/Menu', (req, res) => {
     Item.find()
-      .then(items => res.render('../MasterCard/Menu'))
-      .catch(err => res.status(404).json({ msg: 'No items found' }));
+      .then(items => res.render('../orgs/MasterCard/Menu'))
+      .catch(err => res.status(404).json({ msg: 'Error in Loading Menu' }));
   });
   
-  app.get('/MasterCard/comment/comments', (req, res) => {
+  app.get('/orgs/MasterCard/comments', (req, res) => {
     Item.find()
-      .then(items => res.render('../MasterCard/comment/comments'))
-      .catch(err => res.status(404).json({ msg: 'No items found' }));
+      .then(items => res.render('../orgs/MasterCard/comments'))
+      .catch(err => res.status(404).json({ msg: 'Error in loading comments' }));
 
       
   });
 
-  app.get('/MasterCard/comment/getcomment', (req, res) => {
-    var query = { org: 'MasterCard'}
+  app.get('/orgs/MasterCard/getcomment', (req, res) => {
+    var query = { org: 'MasterCard',
+                  isDeleted: false}
     Item.find(query)
-      .then(items => res.render('../MasterCard/comment/getcomment',{ items }))
-      .catch(err => res.status(404).json({ msg: 'No items found' }));
+      .then(items => res.render('../orgs/MasterCard/getcomment',{ items }))
+      .catch(err => res.status(404).json({ msg: 'Error in loading comments' }));
 
   });
 
-app.post('/', (req, res) => {
-  const newItem = new Item({
-    comment: req.body.comment
-
+  app.get('/orgs/MasterCard/members', (req, res) => {
+      
+    var query = { org: 'MasterCard'};
+    members.insertMany(newmembers).then(items => (members.find(query).sort({ followers : -1}))
+    .then(members => res.render('../orgs/MasterCard/members',{ members }))
+    .catch(err => res.status(404).json({ msg: 'Error in Loading page' })))
+    .catch(err => {if (err.code == 11000){
+                  members.find(query).sort({ followers : -1})
+                  .then(members => res.render('../orgs/MasterCard/members',{ members }))
+                  .catch(err => res.status(404).json({ msg: 'Error in Loading page' }))
+                  }
+                  else {
+                    return res.status(404).json({ msg: 'Error in Loading page' })
+                  }  
+                  })
+      
   });
 
-  newItem.save().then(item => res.redirect('../Paypal/comment/comments'));
-});
 
 const port = 3000;
 

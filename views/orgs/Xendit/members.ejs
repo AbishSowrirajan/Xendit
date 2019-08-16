@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+            th, td {
+              padding: 15px;
+              text-align: left;
+            }
+            table#t01 {
+              width: 100%;    
+              background-color: #f1f1c1;
+            }
+      </style>
+</head>
+<body>
+
+<h2> See all the  Members  for Xendit Organizaiton </h2>
+
+<table id=t01 >
+    <tr>
+       <th>Emailid</th><th>AvatarURL</th><th>Followers</th><th>Following</th>
+    </tr>
+ 
+    <% for (var i = 0; i < members.length; i++) { %>
+     <tr>
+       <td><%= members[i]._id %></td>
+       <td><%= members[i].avatarurl%></td>
+       <td><%= members[i].followers %></td>
+       <td><%= members[i].following %></td>
+     </tr>    
+    <% } %>
+ </table>
+
+
+</body>
+</html>

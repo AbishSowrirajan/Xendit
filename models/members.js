@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ItemSchema = new Schema({
-  emailid: {
+    _id: {
     type: String,
     required: true
   },
@@ -24,4 +24,8 @@ const ItemSchema = new Schema({
   }
 });
 
+//const connection2 = mongoose.createConnection('mongodb://mongo-comment:27017/Member');
+
+
+//module.exports = members = connection2.model('members', ItemSchema);
 module.exports = members = mongoose.model('members', ItemSchema);
