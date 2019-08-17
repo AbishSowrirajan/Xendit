@@ -11,7 +11,7 @@ Prerequisite :
   
   Please install above two software to up the server 
   
-give the following command once installed above software 
+give the following command once installed above softwares 
 
 1. sudo docker-compose up -- this will create 2  container
 
@@ -20,7 +20,16 @@ give the following command once installed above software
     
 2. open browser and give the url as : http://localhost:80
 
-3. please check  this video to know how to navigate to different pages 
+3. please check  this video  to know how to navigate to different pages 
+
+   https://github.com/AbishSowrirajan/Xendit/blob/master/Xendit_Demo_video.mp4
+   
+4. Please download this video and see the Demo 
+
+5. Check the data loaded to db , please see the video from the below link 
+  
+
+   
 
 
   
