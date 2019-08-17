@@ -28,6 +28,14 @@ give the following command once installed above softwares
 
 5. Check the data loaded to db , please see the video from the below link 
   
+  https://github.com/AbishSowrirajan/Xendit/blob/master/Mongo_db_demo.mp4
+  
+  download the video , and see the demo 
+  
+  
+  Thanks for watching this video 
+  
+  
 
    
 
