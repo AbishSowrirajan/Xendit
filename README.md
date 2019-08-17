@@ -18,7 +18,7 @@ CLone the repository from the below path
 
 2.  cd Xendit 
 
-3. sudo docker-compose up -- this will create 2  container
+3. sudo docker-compose up   ----- this will create 2  container
 
     1 - container for Nodejs Code 
     2 - container for MongoDB
@@ -37,8 +37,8 @@ CLone the repository from the below path
   
   download the video , and see the demo 
   
-8. stop the server 
-   sudo docker-compose down 
+8. sudo docker-compose down  -----stop the server 
+    
   
   Thanks for watching this video 
   
