@@ -25,6 +25,13 @@ CLone the repository from the below path
     
 4. open browser and give the url as : http://localhost:80
 
+5. if page is not open , give the following comand 
+      a)  CTRL + c                            ---> abrot the docker 
+      b)  sudo docker-compose down            ---> down all the container 
+      c)  sudo docker-compose up --build      ---> rebuild the containier 
+    now open the URL http://localhost:80 to check the page
+       
+
 5. please check  this video  to know how to navigate to different pages 
 
    https://github.com/AbishSowrirajan/Xendit/blob/master/Xendit_Demo_video.mp4
